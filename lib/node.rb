@@ -7,4 +7,8 @@ class Node
     @left_child = left_child
     @right_child = right_child
   end
+
+  def <=>(other)
+    @data <=> other.data
+  end
 end
