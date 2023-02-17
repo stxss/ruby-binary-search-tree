@@ -32,7 +32,7 @@ puts "---------------------"
 # puts bst.height(node3)
 
 puts "---------------------"
-
+# bst.rebalance
 p bst.pretty_print
 
 # TODO Write a script that creates a binary search tree from an array of random numbers

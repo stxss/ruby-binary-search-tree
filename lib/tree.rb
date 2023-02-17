@@ -5,9 +5,10 @@ class Tree
   def initialize(arr)
     if arr.is_a?(Array)
       @arr = arr
-
+      # @to_rebalance = [] # This array will not be used, as the initial way that was intended to use it defeated the purpose of learning the pre/in/post order traversals, by allowing to not even use those methods
       # Before building a tree, sort it out and remove duplicates
       @arr.sort!.uniq!
+
       @root = build_tree(@arr)
     else
       p "Enter an array please!"
@@ -16,6 +17,8 @@ class Tree
 
   # Method to build the tree, returns level-0 root node.
   def build_tree(arr)
+
+    # As using recursion basically splits the arrays until there are no elements, upon reaching an empty array, return the function
     return if arr.empty?
 
     # Find the middle of the array
@@ -42,10 +45,17 @@ class Tree
     #   - If YES, recursively check the current node's LEFT child and execute insert
     #   - If NO, recursively check the current node's RIGHT child and execute insert
     #  Execute this until the node's value is nil, so the return statement at the top is executed and a value is returned, which in turn is assigned to the respective left or right variable that called it
-    value < node.data ? node.left_child = insert(value, node.left_child) : node.right_child = insert(value, node.right_child)
+
+    (value < node.data) ? node.left_child = insert(value, node.left_child) : node.right_child = insert(value, node.right_child)
 
     # Return the node
     node
+
+    # ----------- the next few lines won't be used as mentioned at the top of the file when specifying the line with @to_rebalance
+    # To avoid doing traversals, just add the node and the respective children to the rebalance array
+    # @to_rebalance << node.data
+    # @to_rebalance << node.left_child.data unless node.left_child.nil?
+    # @to_rebalance << node.right_child.data unless node.right_child.nil?
 
     # --------  Iterative version  -----------
     # if @root.nil?
@@ -77,6 +87,7 @@ class Tree
 
   # Method to delete from the tree
   def delete
+
   end
 
   # Method to find a node with the given value
@@ -132,6 +143,9 @@ class Tree
 
   # Method to rebalance an unbalanced tree
   def rebalance
+    # In case the tree is attempted to be rebalanced, sort it and remove duplicates, then assign the new root to be equal to a new tree
+    # @to_rebalance.concat(@arr).sort!.uniq!
+    self.root = build_tree(@to_rebalance)
   end
 
   # Method to visualize the binary tree
