@@ -37,7 +37,32 @@ class Tree
   end
 
   # Method to insert into the tree
-  def insert
+  def insert(value)
+    if @root.nil?
+      @root = Node.new(value)
+    end
+
+    prev = nil
+    tmp = @root
+
+    until tmp.nil?
+      if tmp.data.nil?
+        tmp = Node.new(value)
+        break
+      elsif value < tmp.data
+        prev = tmp
+        tmp = tmp.left_child
+      elsif value > tmp.data
+        prev = tmp
+        tmp = tmp.right_child
+      end
+    end
+
+    if prev.data > value
+      prev.left_child = Node.new(value)
+    else
+      prev.right_child = Node.new(value)
+    end
   end
 
   # Method to delete from the tree
