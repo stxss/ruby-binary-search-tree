@@ -71,6 +71,22 @@ class Tree
 
   # Method to find a node with the given value
   def find(value)
+    tmp = @root
+    # Traverse tree until there is the value is found
+    until tmp.nil?
+      if value == tmp.data
+        return tmp
+      elsif value < tmp.data
+        tmp = tmp.left_child
+      elsif value > tmp.data
+        tmp = tmp.right_child
+      end
+    end
+
+    # If the node is nil, i.e the tree has been completely traversed and no value was identified, return not found message
+    if tmp.nil?
+      "Value not found!"
+    end
   end
 
   # Method that accepts a block and traverses the tree in breadth-first level order and yields each node to the provided block.
