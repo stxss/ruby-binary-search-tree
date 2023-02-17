@@ -2,6 +2,11 @@ require_relative "node"
 require_relative "tree"
 
 data_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+# data_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+bst = Tree.new(data_arr)
+p bst
+p bst.pretty_print
 
 # TODO Write a script that creates a binary search tree from an array of random numbers
 # TODO Confirms that the tree is balanced by calling #balanced?
