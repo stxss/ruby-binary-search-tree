@@ -6,63 +6,73 @@ class Tree
     if arr.is_a?(Array)
       @arr = arr
 
-      first = @arr.find_index(@arr.first) # Index for the first element of a given array
-      last = @arr.find_index(@arr.last) # Index for the last element of a given array
-
-      @root = build_tree(@arr, first, last)
+      # Before building a tree, sort it out and remove duplicates
+      @arr.sort!.uniq!
+      @root = build_tree(@arr)
     else
       p "Enter an array please!"
     end
   end
 
   # Method to build the tree, returns level-0 root node.
-  def build_tree(arr, start_element, end_element)
-    # Before building a tree, sort it out and remove duplicates
-    arr.sort!.uniq!
-
-    # If the array traversal has been 'crossed', i.e the index of the start is bigger than the index of the end of the array, return nil, as the end of that particular 'iteration' of the traversal has been reached
-    return if start_element > end_element
+  def build_tree(arr)
+    return if arr.empty?
 
     # Find the middle of the array
-    mid = (start_element + end_element) / 2
+    mid = (arr.length - 1) / 2
 
     # Create a new root node for the level
     root = Node.new(arr[mid])
 
     # Recursively repeat the building of the tree for the children/leaves of the tree
-    root.left_child = build_tree(arr, start_element, mid - 1)
-    root.right_child = build_tree(arr, mid + 1, end_element)
+    root.left_child = build_tree(arr[0...mid])
+    root.right_child = build_tree(arr[(mid + 1)...])
 
     root
   end
 
   # Method to insert into the tree
-  def insert(value)
-    if @root.nil?
-      @root = Node.new(value)
-    end
+  def insert(value, node = @root)
+    # --------  Recursive version  -----------
+    # If the node is nil, create a new node with the pretended value in its place
+    return Node.new(value) if node.nil?
 
-    prev = nil
-    tmp = @root
+    # Ternary operation that executes:
+    #  - Is the value given smaller than the current node's data?
+    #   - If YES, recursively check the current node's LEFT child and execute insert
+    #   - If NO, recursively check the current node's RIGHT child and execute insert
+    #  Execute this until the node's value is nil, so the return statement at the top is executed and a value is returned, which in turn is assigned to the respective left or right variable that called it
+    value < node.data ? node.left_child = insert(value, node.left_child) : node.right_child = insert(value, node.right_child)
 
-    until tmp.nil?
-      if tmp.data.nil?
-        tmp = Node.new(value)
-        break
-      elsif value < tmp.data
-        prev = tmp
-        tmp = tmp.left_child
-      elsif value > tmp.data
-        prev = tmp
-        tmp = tmp.right_child
-      end
-    end
+    # Return the node
+    node
 
-    if prev.data > value
-      prev.left_child = Node.new(value)
-    else
-      prev.right_child = Node.new(value)
-    end
+    # --------  Iterative version  -----------
+    # if @root.nil?
+    #   @root = Node.new(value)
+    # end
+
+    # prev = nil
+    # tmp = @root
+
+    # until tmp.nil?
+    #   if tmp.data.nil?
+    #     tmp = Node.new(value)
+    #     break
+    #   elsif value < tmp.data
+    #     prev = tmp
+    #     tmp = tmp.left_child
+    #   elsif value > tmp.data
+    #     prev = tmp
+    #     tmp = tmp.right_child
+    #   end
+    # end
+
+    # if prev.data > value
+    #   prev.left_child = Node.new(value)
+    # else
+    #   prev.right_child = Node.new(value)
+    # end
   end
 
   # Method to delete from the tree
@@ -108,6 +118,8 @@ class Tree
 
   # Method that returns the height of the tree, i.e, the edges in the longest path from a given node to a leaf node
   def height(node)
+    return "Enter a node, please." if !node.is_a?(Node)
+    # Maybe do smth like check if the left or right value is nil, if it is, go to the opposite side, recursively, thus allowing us to 'cut out' the short paths that are there. do this for both the left and right side, similar approach to the #build_tree method
   end
 
   # Method that accepts a node and returns its depth, i.e, the number of edges in a path from a given node to the tree's root node

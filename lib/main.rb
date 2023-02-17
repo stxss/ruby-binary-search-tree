@@ -6,14 +6,33 @@ data_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 bst = Tree.new(data_arr)
 p bst
+
 bst.insert(50)
 bst.insert(6436)
-puts "---------------------"
-p bst.find(6436)
-p bst.find(6437)
-puts "---------------------"
+bst.insert(22)
+bst.insert(10000)
+bst.insert(8.5)
 
 puts "---------------------"
+
+node1 = bst.find(6436)
+
+node2 = bst.find(22)
+
+node3 = bst.find(999999)
+
+p node1
+p node2
+p node3
+
+puts "---------------------"
+
+# puts bst.height(node1)
+# puts bst.height(node2)
+# puts bst.height(node3)
+
+puts "---------------------"
+
 p bst.pretty_print
 
 # TODO Write a script that creates a binary search tree from an array of random numbers
