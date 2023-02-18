@@ -27,6 +27,12 @@ p node3
 
 puts "---------------------"
 
+bst.delete(10000) # Delete an 'end' leaf node
+bst.delete(23) # Delete a node that has 2 children
+bst.delete(6436) # Delete a node that has children that have children
+bst.delete(9)
+puts "---------------------"
+
 # puts bst.height(node1)
 # puts bst.height(node2)
 # puts bst.height(node3)

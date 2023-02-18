@@ -17,7 +17,6 @@ class Tree
 
   # Method to build the tree, returns level-0 root node.
   def build_tree(arr)
-
     # As using recursion basically splits the arrays until there are no elements, upon reaching an empty array, return the function
     return if arr.empty?
 
@@ -46,7 +45,8 @@ class Tree
     #   - If NO, recursively check the current node's RIGHT child and execute insert
     #  Execute this until the node's value is nil, so the return statement at the top is executed and a value is returned, which in turn is assigned to the respective left or right variable that called it
 
-    (value < node.data) ? node.left_child = insert(value, node.left_child) : node.right_child = insert(value, node.right_child)
+    (value < node.data) ? node.left_child = insert(value,
+      node.left_child) : node.right_child = insert(value, node.right_child)
 
     # Return the node
     node
@@ -86,8 +86,41 @@ class Tree
   end
 
   # Method to delete from the tree
-  def delete
+  def delete(value, node = @root)
+    # Return the node if it is nil
+    return node if node.nil?
 
+    # If the value that we want to delete is less than the current node's data, recursively check its left subtree
+    if value < node.data
+      node.left_child = delete(value, node.left_child)
+    elsif value > node.data
+      # If it is bigger,recursively check the right subtree
+      node.right_child = delete(value, node.right_child)
+    elsif node.right_child.nil?
+      # If the node has only the left child (right is nil), return the left child and set the current node to nil, effectively deleting it
+      tmp = node.left_child
+      node = nil
+      return tmp
+    elsif node.left_child.nil?
+      # If the node has only the right child (left is nil), return the right child and set the current node to nil, effectively deleting it
+      tmp = node.right_child
+      node = nil
+      return tmp
+    else
+      # If the value we want to delete has two children, we first go into its right subtree
+      tmp = node.right_child
+      # Then, keep looking until we find its inorder successor (next biggest value from the one we want to delete, that is the leftmost leaf of the right subtree from the node's value that we want to delete)
+      until tmp.left_child.nil?
+        tmp = tmp.left_child
+      end
+
+      # Finally, replace the current node's data with the value of the inorder successor
+      node.data = tmp.data
+
+      # And delete the node that had the inorder successor value
+      node.right_child = delete(tmp.data, node.right_child)
+    end
+    node
   end
 
   # Method to find a node with the given value
