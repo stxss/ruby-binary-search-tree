@@ -140,7 +140,13 @@ class Tree
     res
   end
 
-  def inorder
+  def inorder(node = @root, res = [])
+    return if node.nil?
+
+    inorder(node.left_child, res)
+    res << node.data
+    inorder(node.right_child, res)
+    res
   end
 
   def postorder
