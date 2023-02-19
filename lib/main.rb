@@ -44,6 +44,12 @@ puts bst.level_order_recursive { |node| puts (node.data * 2).to_s }
 
 puts "---------------------"
 
+p bst.preorder
+p bst.inorder
+p bst.postorder
+
+puts "---------------------"
+
 # puts bst.height(node1)
 # puts bst.height(node2)
 # puts bst.height(node3)
