@@ -22,39 +22,37 @@ class Tree
   end
 
   def insert(value, node = @root)
-    # --------  Recursive version  -----------
     return Node.new(value) if node.nil?
 
     (value < node.data) ? node.left_child = insert(value,
       node.left_child) : node.right_child = insert(value, node.right_child)
     node
+  end
 
-    # --------  Iterative version  -----------
-    # if @root.nil?
-    #   @root = Node.new(value)
-    # end
+  def insert_iterative(value, node = @root)
+    return @root = Node.new(value) if @root.nil?
 
-    # prev = nil
-    # tmp = @root
+    prev = nil
+    tmp = @root
 
-    # until tmp.nil?
-    #   if tmp.data.nil?
-    #     tmp = Node.new(value)
-    #     break
-    #   elsif value < tmp.data
-    #     prev = tmp
-    #     tmp = tmp.left_child
-    #   elsif value > tmp.data
-    #     prev = tmp
-    #     tmp = tmp.right_child
-    #   end
-    # end
+    until tmp.nil?
+      if tmp.data.nil?
+        tmp = Node.new(value)
+        break
+      elsif value < tmp.data
+        prev = tmp
+        tmp = tmp.left_child
+      elsif value > tmp.data
+        prev = tmp
+        tmp = tmp.right_child
+      end
+    end
 
-    # if prev.data > value
-    #   prev.left_child = Node.new(value)
-    # else
-    #   prev.right_child = Node.new(value)
-    # end
+    if prev.data > value
+      prev.left_child = Node.new(value)
+    else
+      prev.right_child = Node.new(value)
+    end
   end
 
   def delete(value, node = @root)
@@ -103,7 +101,6 @@ class Tree
     end
   end
 
-  # TODO: Try to implement both iteration and recurstion
   def level_order(node = @root)
     return node if node.nil?
 
@@ -111,7 +108,6 @@ class Tree
     res = []
     queue << node
 
-    # Recursive
     until queue.empty?
       current = queue.shift
       block_given? ? yield(current) : res << current.data
@@ -119,8 +115,20 @@ class Tree
       queue << (current.right_child) unless current.right_child.nil?
     end
     res
+  end
 
-    # Iterative
+  def level_order_recursive(res = [], queue = [], node = @root)
+    queue << node if res.empty?
+
+    unless queue.empty?
+      current = queue.shift
+      res << current.data
+      queue << current.left_child unless current.left_child.nil?
+      queue << current.right_child unless current.right_child.nil?
+      yield(current) if block_given?
+      level_order_recursive(res, queue)
+    end
+    res
   end
 
   def preorder
