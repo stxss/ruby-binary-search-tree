@@ -117,7 +117,7 @@ class Tree
     res
   end
 
-  def level_order_recursive(res = [], queue = [], node = @root)
+  def level_order_recursive(res = [], queue = [], node = @root, &block)
     queue << node if res.empty?
 
     unless queue.empty?
@@ -131,30 +131,33 @@ class Tree
     res
   end
 
-  def preorder(node = @root, res = [])
+  def preorder(node = @root, res = [], &block)
     return if node.nil?
 
     res << node.data
-    preorder(node.left_child, res)
-    preorder(node.right_child, res)
+    yield(node) if block
+    preorder(node.left_child, res, &block)
+    preorder(node.right_child, res, &block)
     res
   end
 
-  def inorder(node = @root, res = [])
+  def inorder(node = @root, res = [], &block)
     return if node.nil?
 
-    inorder(node.left_child, res)
+    inorder(node.left_child, res, &block)
     res << node.data
-    inorder(node.right_child, res)
+    yield(node) if block
+    inorder(node.right_child, res, &block)
     res
   end
 
-  def postorder(node = @root, res = [])
+  def postorder(node = @root, res = [], &block)
     return if node.nil?
 
-    postorder(node.left_child, res)
-    postorder(node.right_child, res)
+    postorder(node.left_child, res, &block)
+    postorder(node.right_child, res, &block)
     res << node.data
+    yield(node) if block
     res
   end
 
