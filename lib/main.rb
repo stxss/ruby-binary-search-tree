@@ -9,9 +9,9 @@ p bst
 
 bst.insert(50)
 bst.insert(6436)
-# bst.insert(6437)
-# bst.insert(6438)
-# bst.insert(6439)
+bst.insert(6437)
+bst.insert(6438)
+bst.insert(6439)
 bst.insert(22)
 bst.insert_iterative(10000)
 bst.insert_iterative(8.5)
@@ -77,7 +77,7 @@ puts "---------------------"
 
 p bst.balanced?
 
-# bst.rebalance
+bst.rebalance
 p bst.pretty_print
 
 # TODO Write a script that creates a binary search tree from an array of random numbers
