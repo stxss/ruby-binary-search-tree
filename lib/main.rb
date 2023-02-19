@@ -23,10 +23,9 @@ bst.delete(9)
 puts "---------------------"
 
 node1 = bst.find(4)
-
 node2 = bst.find(22)
-
 node3 = bst.find(999999)
+node4 = bst.find(8.5)
 
 p node1
 p node2
@@ -60,7 +59,16 @@ puts "---------------------"
 puts "the height of #{bst.root.data} is #{bst.height}"
 puts "the height of #{node1.data} is #{bst.height(node1)}"
 puts "the height of #{node2.data} is #{bst.height(node2)}"
-puts bst.height(node3)
+puts bst.height(node3) # invalid node check
+puts "the height of #{node4.data} is #{bst.height(node4)}"
+
+puts "---------------------"
+
+puts "the depth of #{bst.root.data} is #{bst.depth}"
+puts "the depth of #{node1.data} is #{bst.depth(node1)}"
+puts "the depth of #{node2.data} is #{bst.depth(node2)}"
+puts bst.depth(node3) # invalid node check
+puts "the depth of #{node4.data} is #{bst.depth(node4)}"
 
 puts "---------------------"
 # bst.rebalance
