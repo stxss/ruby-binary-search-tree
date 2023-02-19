@@ -194,8 +194,7 @@ class Tree
   end
 
   def rebalance
-    # @to_rebalance.concat(@arr).sort!.uniq!
-    self.root = build_tree(@to_rebalance)
+    self.root = build_tree(inorder)
   end
 
   def pretty_print(node = @root, prefix = "", is_left = true)
