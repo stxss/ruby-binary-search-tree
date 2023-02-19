@@ -9,6 +9,9 @@ p bst
 
 bst.insert(50)
 bst.insert(6436)
+# bst.insert(6437)
+# bst.insert(6438)
+# bst.insert(6439)
 bst.insert(22)
 bst.insert_iterative(10000)
 bst.insert_iterative(8.5)
@@ -16,9 +19,9 @@ bst.insert_iterative(8.5)
 puts "---------------------"
 
 bst.delete(10000) # Delete an 'end' leaf node
-bst.delete(23) # Delete a node that has 2 children
-bst.delete(6436) # Delete a node that has children that have children
-bst.delete(9)
+# bst.delete(23) # Delete a node that has 2 children
+# bst.delete(6436) # Delete a node that has children that have children
+# bst.delete(9)
 
 puts "---------------------"
 
@@ -71,6 +74,9 @@ puts bst.depth(node3) # invalid node check
 puts "the depth of #{node4.data} is #{bst.depth(node4)}"
 
 puts "---------------------"
+
+p bst.balanced?
+
 # bst.rebalance
 p bst.pretty_print
 
