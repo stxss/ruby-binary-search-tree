@@ -35,7 +35,7 @@ class Tree
     prev = nil
     tmp = @root
 
-    until tmp.nil?
+    while tmp
       if tmp.data.nil?
         tmp = Node.new(value)
         break
@@ -62,11 +62,11 @@ class Tree
       node.left_child = delete(value, node.left_child)
     elsif value > node.data
       node.right_child = delete(value, node.right_child)
-    elsif node.right_child.nil?
+    elsif !node.right_child
       tmp = node.left_child
       node = nil
       return tmp
-    elsif node.left_child.nil?
+    elsif !node.left_child
       tmp = node.right_child
       node = nil
       return tmp
@@ -74,7 +74,7 @@ class Tree
       # If the value we want to delete has two children, we first go into its right subtree
       tmp = node.right_child
       # Then, keep looking until we find its inorder successor (next biggest value from the one we want to delete, that is the leftmost leaf of the right subtree from the node's value that we want to delete)
-      until tmp.left_child.nil?
+      while tmp.left_child
         tmp = tmp.left_child
       end
 
@@ -86,7 +86,7 @@ class Tree
 
   def find(value)
     tmp = @root
-    until tmp.nil?
+    while tmp
       if value == tmp.data
         return tmp
       elsif value < tmp.data
@@ -111,8 +111,8 @@ class Tree
     until queue.empty?
       current = queue.shift
       block_given? ? yield(current) : res << current.data
-      queue << (current.left_child) unless current.left_child.nil?
-      queue << (current.right_child) unless current.right_child.nil?
+      queue << (current.left_child) unless !current.left_child
+      queue << (current.right_child) unless !current.right_child
     end
     res
   end
@@ -123,10 +123,10 @@ class Tree
     unless queue.empty?
       current = queue.shift
       res << current.data
-      queue << current.left_child unless current.left_child.nil?
-      queue << current.right_child unless current.right_child.nil?
-      yield(current) if block_given?
-      level_order_recursive(res, queue)
+      queue << current.left_child unless !current.left_child
+      queue << current.right_child unless !current.right_child
+      yield(current) if block
+      level_order_recursive(res, queue, &block)
     end
     res
   end
