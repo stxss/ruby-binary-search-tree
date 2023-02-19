@@ -35,7 +35,12 @@ p node3
 puts "---------------------"
 
 p bst.level_order
-bst.level_order {|node| puts "#{node.data * 2}"}
+bst.level_order { |node| puts (node.data * 2).to_s }
+
+puts "---recursive below---"
+
+p bst.level_order_recursive
+puts bst.level_order_recursive { |node| puts (node.data * 2).to_s }
 
 puts "---------------------"
 
