@@ -2,23 +2,23 @@ require_relative "node"
 require_relative "tree"
 
 data_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-# data_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+# data_arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 bst = Tree.new(data_arr)
 p bst
 
-bst.insert(50)
-bst.insert(6436)
-bst.insert(22)
-bst.insert_iterative(10000)
-bst.insert_iterative(8.5)
+# bst.insert(50)
+# bst.insert(6436)
+# bst.insert(22)
+# bst.insert_iterative(10000)
+# bst.insert_iterative(8.5)
 
 puts "---------------------"
 
-bst.delete(10000) # Delete an 'end' leaf node
-bst.delete(23) # Delete a node that has 2 children
-bst.delete(6436) # Delete a node that has children that have children
-bst.delete(9)
+# bst.delete(10000) # Delete an 'end' leaf node
+# bst.delete(23) # Delete a node that has 2 children
+# bst.delete(6436) # Delete a node that has children that have children
+# bst.delete(9)
 
 puts "---------------------"
 
