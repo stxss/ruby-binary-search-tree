@@ -7,18 +7,18 @@ data_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 bst = Tree.new(data_arr)
 p bst
 
-# bst.insert(50)
-# bst.insert(6436)
-# bst.insert(22)
-# bst.insert_iterative(10000)
-# bst.insert_iterative(8.5)
+bst.insert(50)
+bst.insert(6436)
+bst.insert(22)
+bst.insert_iterative(10000)
+bst.insert_iterative(8.5)
 
 puts "---------------------"
 
-# bst.delete(10000) # Delete an 'end' leaf node
-# bst.delete(23) # Delete a node that has 2 children
-# bst.delete(6436) # Delete a node that has children that have children
-# bst.delete(9)
+bst.delete(10000) # Delete an 'end' leaf node
+bst.delete(23) # Delete a node that has 2 children
+bst.delete(6436) # Delete a node that has children that have children
+bst.delete(9)
 
 puts "---------------------"
 
@@ -40,7 +40,7 @@ bst.level_order { |node| puts (node.data * 2).to_s }
 puts "---recursive below---"
 
 p bst.level_order_recursive
-puts bst.level_order_recursive { |node| puts (node.data * 2).to_s }
+bst.level_order_recursive { |node| puts (node.data * 2).to_s }
 
 puts "---------------------"
 
@@ -48,11 +48,19 @@ p bst.preorder
 p bst.inorder
 p bst.postorder
 
+puts "----------Preorder with block-----------"
+bst.preorder { |node| puts (node.data * 2).to_s }
+puts "----------Inorder with block-----------"
+bst.inorder { |node| puts (node.data * 2).to_s }
+puts "----------Postorder with block-----------"
+bst.postorder { |node| puts (node.data * 2).to_s }
+
 puts "---------------------"
 
-# puts bst.height(node1)
-# puts bst.height(node2)
-# puts bst.height(node3)
+puts "the height of #{bst.root.data} is #{bst.height}"
+puts "the height of #{node1.data} is #{bst.height(node1)}"
+puts "the height of #{node2.data} is #{bst.height(node2)}"
+puts bst.height(node3)
 
 puts "---------------------"
 # bst.rebalance
