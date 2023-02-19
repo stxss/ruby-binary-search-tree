@@ -131,7 +131,13 @@ class Tree
     res
   end
 
-  def preorder
+  def preorder(node = @root, res = [])
+    return if node.nil?
+
+    res << node.data
+    preorder(node.left_child, res)
+    preorder(node.right_child, res)
+    res
   end
 
   def inorder
