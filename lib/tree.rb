@@ -161,9 +161,22 @@ class Tree
     res
   end
 
-  def height(node)
-    return "Enter a node, please." if !node.is_a?(Node)
-    # TODO Maybe do smth like check if the left or right value is nil, if it is, go to the opposite side, recursively, thus allowing us to 'cut out' the short paths that are there. do this for both the left and right side, similar approach to the #build_tree method
+  def height(node = @root, h = 0, h_arr = [])
+    return "Please, enter a valid node." if !node.is_a?(Node)
+
+    return if node.nil?
+
+    if node
+      h_arr << h
+      h += 1
+      if node.left_child
+        height(node.left_child, h, h_arr)
+      elsif node.right_child
+        height(node.right_child, h, h_arr)
+      end
+
+    end
+    h_arr.max
   end
 
   def depth
