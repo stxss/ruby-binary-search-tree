@@ -149,7 +149,13 @@ class Tree
     res
   end
 
-  def postorder
+  def postorder(node = @root, res = [])
+    return if node.nil?
+
+    postorder(node.left_child, res)
+    postorder(node.right_child, res)
+    res << node.data
+    res
   end
 
   def height(node)
