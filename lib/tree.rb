@@ -179,7 +179,9 @@ class Tree
     h_arr.max
   end
 
-  def depth
+  def depth(node = @root)
+    return "Please, enter a valid node." if !node.is_a?(Node)
+    height(@root) - height(node)
   end
 
   def balanced?
